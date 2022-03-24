@@ -4,7 +4,6 @@ import LastName from "./lastName";
 import Incremnt from "./Increment";
 import Students from "./students";
 
-//! class
 class App extends React.Component {
    state = { counter: 1 };
 

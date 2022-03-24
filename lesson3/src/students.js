@@ -15,26 +15,37 @@ class Students extends React.Component {
    };
 
    makeOlder = () => {
-      console.log("Hello");
-      this.setState({ age: this.state.students[0].age + 1 });
+      let result = this.state.students.map((obj) => {
+         return {
+            name: obj.name,
+            age: obj.age + 1,
+         };
+      });
+      this.setState({ students: result });
    };
+
    makeYounger = () => {
-      this.setState({ age: this.state.students[1].age - 1 });
+      let result = this.state.students.map((obj) => {
+         return {
+            name: obj.name,
+            age: obj.age - 1,
+         };
+      });
+      this.setState({ students: result });
    };
 
    render() {
-      console.log("Hello");
       return (
          <div>
             <h1>
                {this.state.students[0].name} {this.state.students[0].age}
             </h1>
-            <button onclick={this.makeYounger}>Make Younger</button>
 
             <h1>
                {this.state.students[1].name} {this.state.students[1].age}
             </h1>
-            <button onClick={this.makeYounger}>Make Younger</button>
+            <button onClick={this.makeYounger}>Make Younger the Age</button>
+            <button onClick={this.makeOlder}>Make Older the Age</button>
          </div>
       );
    }
