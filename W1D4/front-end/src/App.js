@@ -34,6 +34,18 @@ class App extends React.Component {
       this.setState({ students: result });
    };
 
+   changeName = (id, event) => {
+      let result = this.state.students.map((obj) => {
+         if (obj.id === id) {
+            let copyObj = { ...obj };
+            copyObj.fname = event.target.value;
+            return copyObj;
+         }
+         return obj;
+      });
+      this.setState({ students: result });
+   };
+
    render() {
       return (
          <div>
@@ -42,19 +54,24 @@ class App extends React.Component {
                lname={this.state.students[0].lname}
                age={this.state.students[0].age}
                makeYounger={() => this.makeYounger(this.state.students[0].id)}
-               makeOlder={() => this.makeOlder(this.state.students[0].id)}></Students>
+               makeOlder={() => this.makeOlder(this.state.students[0].id)}
+               changeName={(event) => this.changeName(this.state.students[0].id, event)}></Students>
+
             <Students
                fname={this.state.students[1].fname}
                lname={this.state.students[1].lname}
                age={this.state.students[1].age}
                makeYounger={() => this.makeYounger(this.state.students[1].id)}
-               makeOlder={() => this.makeOlder(this.state.students[1].id)}></Students>
+               makeOlder={() => this.makeOlder(this.state.students[1].id)}
+               changeName={(event) => this.changeName(this.state.students[1].id, event)}></Students>
+
             <Students
                fname={this.state.students[2].fname}
                lname={this.state.students[2].lname}
                age={this.state.students[2].age}
                makeYounger={() => this.makeYounger(this.state.students[2].id)}
-               makeOlder={() => this.makeOlder(this.state.students[2].id)}></Students>
+               makeOlder={() => this.makeOlder(this.state.students[2].id)}
+               changeName={(event) => this.changeName(this.state.students[2].id, event)}></Students>
          </div>
       );
    }
