@@ -9,12 +9,18 @@ class Students extends React.Component {
             </h1>
             <input
                type='text'
-               placeholder='Enter your new fname'
-               onChange={this.props.changeName}
+               placeholder='FirstName  Update'
+               onChange={this.props.changeFirstName}
+            />
+            <input
+               type='text'
+               placeholder=' LastName Update'
+               onChange={this.props.changeLastName}
             />
             <button onClick={this.props.makeYounger}>Make Young Age</button>
 
             <button onClick={this.props.makeOlder}> Make Older Age</button>
+            <button onClick={this.props.deleteStudent}> Delete</button>
          </div>
       );
    }
