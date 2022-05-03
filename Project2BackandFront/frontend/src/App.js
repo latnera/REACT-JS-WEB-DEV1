@@ -4,48 +4,62 @@ import axios from "axios";
 import CreateMovie from "./CreateMovie";
 
 class App extends React.Component {
-   state = {
-      movies: [],
-      movie: { name: "", genres: "", rating: 0 },
-   };
+  state = {
+    movies: [],
+    movie: { name: "", genres: "", rating: 0 }
+  };
 
-   changeProperty = (event) => {
-      let copyMovie = { ...this.state.movie };
-      copyMovie[event.target.name] = event.target.value;
-      this.setState({ movie: copyMovie });
-   };
+  changeProperty = (event) => {
+    let copyMovie = { ...this.state.movie };
+    copyMovie[event.target.name] = event.target.value;
+    this.setState({ movie: copyMovie });
+  };
 
-   saveProperty = () => {
-      axios.post("/movies", this.state.movie).then((res) => {
-         console.log(res.data);
-      });
-   };
+  saveProperty = () => {
+    axios.post("/movies/create", this.state.movie).then((res) => {
+      console.log(res.data);
+    });
+  };
 
-   componentDidMount() {
-      axios
-         .get("/movies")
-         .then((res) => {
-            this.setState({ movies: res.data });
-         })
-         .catch((err) => console.log(err));
-   }
+  DeleteMovie = (id) => {
+    axios.delete(`/movies/delete/${id}`, this.state.movies).then((res) => {
+      console.log(res.data);
+    });
+  };
 
-   render() {
-      return (
-         <div>
-            {this.state.movies.map((item) => {
-               return <Movie name={item.name} genre={item.genres} rating={item.rating}></Movie>;
-            })}
+  componentDidMount() {
+    axios
+      .get("/movies/find")
+      .then((res) => {
+        this.setState({ movies: res.data });
+      })
+      .catch((err) => console.log(err));
+  }
 
-            <CreateMovie
-               name={this.state.movie.name}
-               genre={this.state.movie.genres}
-               rating={this.state.movie.rating}
-               changeProperty={(event) => this.changeProperty(event)}
-               saveProperty={this.saveProperty}></CreateMovie>
-         </div>
-      );
-   }
+  render() {
+    return (
+      <div>
+        {this.state.movies.map((item) => {
+          return (
+            <Movie
+              name={item.name}
+              genre={item.genres}
+              rating={item.rating}
+              deleteMovie={this.DeleteMovie(item._id)}
+            ></Movie>
+          );
+        })}
+
+        <CreateMovie
+          name={this.state.movie.name}
+          genre={this.state.movie.genres}
+          rating={this.state.movie.rating}
+          changeProperty={(event) => this.changeProperty(event)}
+          saveProperty={this.saveProperty}
+        ></CreateMovie>
+      </div>
+    );
+  }
 }
 
 export default App;

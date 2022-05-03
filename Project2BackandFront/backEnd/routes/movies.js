@@ -1,16 +1,11 @@
 var express = require("express");
+const mvController = require("../Controller/movieController");
+
 var router = express.Router();
 
-router.get("/", (req, res, next) => {
-   res.send([
-      { id: 1, name: "Eelaa", rating: 1.2, genres: "About mother in law" },
-      { id: 1, name: "Love is Blind", rating: 1.1, genres: "Romantic" },
-   ]);
-});
-router.post("/", (req, res, next) => {
-   let body = req.body;
-   console.log(body);
-   res.send({});
-});
+router.post("/create", mvController.create);
+router.get("/find", mvController.find);
+router.put("/update/:id", mvController.update);
+router.delete("/delete/:id", mvController.delete);
 
 module.exports = router;
