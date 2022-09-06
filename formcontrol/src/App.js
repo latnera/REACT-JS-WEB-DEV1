@@ -13,9 +13,12 @@ export default function App() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    let copyState = [...state];
-    copyState.push(names);
-    setState(copyState);
+    //if no new data, dont summit
+    if (names.fName && names.lName) {
+      let copyState = [...state];
+      copyState.push(names);
+      setState(copyState);
+    }
   };
 
   return (
